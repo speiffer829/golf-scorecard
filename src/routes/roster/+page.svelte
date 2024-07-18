@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { players, Player } from '$lib/store.svelte';
+	import type { ColorOptions } from '$lib/Types';
 	import Playerbox from './PlayerBox.svelte';
 
 	function handle_submit(event: Event) {
@@ -8,7 +9,17 @@
 		const input = form.new_player as HTMLInputElement;
 		const name = input.value.trim();
 		if (name) {
-			const colors = ['red', 'gold', 'green', 'blue', 'purple', 'orange', 'pink'];
+			const colors: ColorOptions[] = [
+				'red',
+				'gold',
+				'green',
+				'blue',
+				'purple',
+				'orange',
+				'pink',
+				'black',
+				'white'
+			];
 			const randomColor = colors[Math.floor(Math.random() * colors.length)];
 			players.value.push(new Player(name, randomColor));
 			input.value = '';

@@ -7,7 +7,17 @@
 	}
 	let { player = $bindable() }: PropsType = $props();
 
-	const colors: ColorOptions[] = ['red', 'gold', 'green', 'blue', 'purple', 'orange', 'pink'];
+	const colors: ColorOptions[] = [
+		'red',
+		'gold',
+		'green',
+		'blue',
+		'purple',
+		'orange',
+		'pink',
+		'black',
+		'white'
+	];
 </script>
 
 <li class="my-4 py-2 pl-2 theme-{player.color}" data-id={player.id}>
@@ -17,7 +27,6 @@
 			<li class="">
 				<button
 					class="h-8 w-8 rounded-full border border-dark dark:border-white bg-ball-{color} flex items-center justify-center"
-					class:border-green-100={color === player.color}
 					onclick={() => (player.color = color)}
 				>
 					{#if color === player.color}
@@ -44,6 +53,13 @@
 </li>
 
 <style>
+	.theme-black {
+		--color: theme('colors.ball.black');
+	}
+
+	.theme-white {
+		--color: theme('colors.ball.white');
+	}
 	.theme-red {
 		--color: theme('colors.ball.red');
 	}
@@ -75,15 +91,16 @@
 	.name {
 		position: relative;
 		isolation: isolate;
+		text-wrap: balance;
 
 		&::after {
 			content: '';
 			position: absolute;
-			height: 20%;
+			height: 8px;
 			width: 100%;
 			opacity: 1;
 			left: 0;
-			top: 80%;
+			top: calc(100% - 8px);
 			z-index: -1;
 			background-color: var(--color);
 		}

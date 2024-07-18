@@ -7,4 +7,13 @@ export interface PlayerType {
 	total: number;
 }
 
-export type ColorOptions = 'red' | 'gold' | 'green' | 'blue' | 'purple' | 'orange' | 'pink';
+export type ColorOptions =
+	| 'red'
+	| 'gold'
+	| 'green'
+	| 'blue'
+	| 'purple'
+	| 'orange'
+	| 'pink'
+	| 'white'
+	| 'black';

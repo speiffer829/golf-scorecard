@@ -2,6 +2,17 @@ import type { Config } from 'tailwindcss';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	safelist: [
+		'bg-ball-red',
+		'bg-ball-orange',
+		'bg-ball-purple',
+		'bg-ball-pink',
+		'bg-ball-gold',
+		'bg-ball-green',
+		'bg-ball-blue',
+		'bg-ball-white',
+		'bg-ball-black'
+	],
 
 	theme: {
 		extend: {
@@ -18,7 +29,9 @@ export default {
 					pink: '#ef47ce',
 					gold: '#FFD166',
 					green: '#06D6A0',
-					blue: '#118AB2'
+					blue: '#118AB2',
+					white: '#FFFFFF',
+					black: '#000000'
 				},
 				green: {
 					100: '#CCFF33',
