@@ -71,6 +71,10 @@ h1 {
 		@media (prefers-color-scheme: light) {
 			background-color: theme('colors.green.900');
 			color: theme('colors.green.100');
+
+			&:hover {
+				background-color: theme('colors.green.500');
+			}
 		}
 	}
 }

@@ -32,12 +32,12 @@
 
 <h1 class="pt-10">Roster</h1>
 
-<form class="mx-auto mt-8 flex max-w-md gap-3" onsubmit={handle_submit}>
+<form class="mx-auto mt-8 flex gap-3" onsubmit={handle_submit}>
 	<input
 		type="text"
 		name="new_player"
 		placeholder="New Player Name"
-		class="block flex-1 rounded-xl border border-green-900 bg-green-50 px-3 py-2 font-atkinson text-lg text-green-950 outline-offset-4 focus:outline-1 focus:outline-green-100 dark:border-green-100"
+		class="block w-5 flex-1 rounded-xl border border-green-900 bg-green-50 px-3 py-2 font-atkinson text-4xl font-bold text-green-950 outline-offset-4 focus:outline-1 focus:outline-green-100 dark:border-green-100"
 		autocomplete="off"
 	/>
 	<button class="btn rounded-xl" type="submit"
