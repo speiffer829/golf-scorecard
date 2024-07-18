@@ -20,7 +20,7 @@
 	];
 </script>
 
-<li class="my-4 py-2 pl-2 theme-{player.color}" data-id={player.id}>
+<div class="my-4 py-2 pl-2 theme-{player.color}" data-id={player.id}>
 	<p class="name w-fit text-4xl font-bold capitalize">{player.name}</p>
 	<ul class="mt-4 flex flex-wrap gap-2">
 		{#each colors as color}
@@ -50,7 +50,7 @@
 			</li>
 		{/each}
 	</ul>
-</li>
+</div>
 
 <style>
 	.theme-black {

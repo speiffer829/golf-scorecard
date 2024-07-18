@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { players, Player } from '$lib/store.svelte';
 	import type { ColorOptions } from '$lib/Types';
+	import { flip } from 'svelte/animate';
 	import Playerbox from './PlayerBox.svelte';
 
 	function handle_submit(event: Event) {
@@ -26,6 +27,7 @@
 		}
 	}
 	import PlayerBox from './PlayerBox.svelte';
+	import { fly } from 'svelte/transition';
 </script>
 
 <h1 class="pt-10">Roster</h1>
@@ -56,7 +58,9 @@
 </form>
 
 <ul class="mt-9">
-	{#each players.value as player}
-		<PlayerBox bind:player />
+	{#each [...players.value].reverse() as player (player.id)}
+		<li animate:flip={{ duration: 300 }} in:fly={{ y: -100, duration: 300 }}>
+			<PlayerBox bind:player />
+		</li>
 	{/each}
 </ul>
