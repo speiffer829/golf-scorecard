@@ -1,8 +1,10 @@
 <script lang="ts">
+	import PlayerBox from './PlayerBox.svelte';
 	import { players, Player } from '$lib/store.svelte';
-	import type { ColorOptions } from '$lib/Types';
+	import type { ColorOptions, PlayerType } from '$lib/Types';
 	import { flip } from 'svelte/animate';
-	import Playerbox from './PlayerBox.svelte';
+	import { fly } from 'svelte/transition';
+	import Dialog from '$lib/components/Dialog.svelte';
 
 	function handle_submit(event: Event) {
 		event.preventDefault();
@@ -22,12 +24,26 @@
 				'white'
 			];
 			const randomColor = colors[Math.floor(Math.random() * colors.length)];
-			players.value.push(new Player(name, randomColor));
+			players.value.unshift(new Player(name, randomColor));
 			input.value = '';
 		}
 	}
-	import PlayerBox from './PlayerBox.svelte';
-	import { fly } from 'svelte/transition';
+
+	let choppingBlockName: string = $state();
+	let choppingBlockId: string = $state();
+	let choppingBlockDialog: HTMLDialogElement = $state();
+
+	function ondelete(e: Event) {
+		choppingBlockId = (e.currentTarget as HTMLElement).getAttribute('data-id');
+		choppingBlockName = (e.currentTarget as HTMLElement).getAttribute('data-name');
+
+		choppingBlockDialog.showModal();
+	}
+
+	function removePlayer() {
+		players.value = players.value.filter((player: PlayerType) => player.id !== choppingBlockId);
+		choppingBlockDialog.close();
+	}
 </script>
 
 <h1 class="pt-10">Roster</h1>
@@ -36,8 +52,8 @@
 	<input
 		type="text"
 		name="new_player"
-		placeholder="New Player Name"
-		class="block w-5 flex-1 rounded-xl border border-green-900 bg-green-50 px-3 py-2 font-atkinson text-4xl font-bold text-green-950 outline-offset-4 focus:outline-1 focus:outline-green-100 dark:border-green-100"
+		placeholder="Player Name"
+		class="block w-5 flex-1 rounded-xl border border-green-900 bg-green-50 px-3 py-2 font-atkinson text-3xl font-bold text-green-950 outline-offset-4 focus:outline-1 focus:outline-green-100 dark:border-green-100"
 		autocomplete="off"
 	/>
 	<button class="btn rounded-xl" type="submit"
@@ -58,9 +74,27 @@
 </form>
 
 <ul class="mt-9">
-	{#each [...players.value].reverse() as player (player.id)}
+	{#each players.value as player, index (player.id)}
 		<li animate:flip={{ duration: 300 }} in:fly={{ y: -100, duration: 300 }}>
-			<PlayerBox bind:player />
+			<PlayerBox bind:player={players.value[index]} {ondelete} />
 		</li>
 	{/each}
 </ul>
+
+<Dialog bind:dialog={choppingBlockDialog}>
+	<p class="text-2xl">
+		Are you sure you want to remove <strong class="font-bold text-green-100"
+			>{choppingBlockName}</strong
+		>?
+	</p>
+
+	<div class="mt-8 grid grid-cols-2 gap-4">
+		<button class="btn w-full bg-red-400 text-red-950 hover:bg-red-500" onclick={removePlayer}
+			>Remove</button
+		>
+		<button
+			class="btn w-full bg-green-100 text-green-900 hover:bg-green-300"
+			onclick={() => choppingBlockDialog.close()}>Cancel</button
+		>
+	</div>
+</Dialog>
