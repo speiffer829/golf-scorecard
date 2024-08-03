@@ -1,10 +1,11 @@
 <script lang="ts">
 	import PlayerBox from './PlayerBox.svelte';
-	import { players, Player } from '$lib/store.svelte';
+	import { game, Player } from '$lib/store.svelte';
 	import type { ColorOptions, PlayerType } from '$lib/Types';
 	import { flip } from 'svelte/animate';
-	import { fly } from 'svelte/transition';
+	import { fly, scale } from 'svelte/transition';
 	import Dialog from '$lib/components/Dialog.svelte';
+	import { goto } from '$app/navigation';
 
 	function handle_submit(event: Event) {
 		event.preventDefault();
@@ -24,8 +25,9 @@
 				'white'
 			];
 			const randomColor = colors[Math.floor(Math.random() * colors.length)];
-			players.value.unshift(new Player(name, randomColor));
+			game.players.unshift(new Player(name, randomColor));
 			input.value = '';
+			input.focus();
 		}
 	}
 
@@ -41,7 +43,7 @@
 	}
 
 	function removePlayer() {
-		players.value = players.value.filter((player: PlayerType) => player.id !== choppingBlockId);
+		game.players = game.players.filter((player: PlayerType) => player.id !== choppingBlockId);
 		choppingBlockDialog.close();
 	}
 </script>
@@ -55,8 +57,9 @@
 		placeholder="Player Name"
 		class="block w-5 flex-1 rounded-xl border border-green-900 bg-green-50 px-3 py-2 font-atkinson text-3xl font-bold text-green-950 outline-offset-4 focus:outline-1 focus:outline-green-100 dark:border-green-100"
 		autocomplete="off"
+		enterkeyhint="go"
 	/>
-	<button class="btn rounded-xl" type="submit"
+	<button class="btn rounded-xl" type="submit" aria-label="Add Player"
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"
@@ -74,12 +77,32 @@
 </form>
 
 <ul class="mt-9">
-	{#each players.value as player, index (player.id)}
+	{#each game.players as player, index (player.id)}
 		<li animate:flip={{ duration: 300 }} in:fly={{ y: -100, duration: 300 }}>
-			<PlayerBox bind:player={players.value[index]} {ondelete} />
+			<PlayerBox bind:player={game.players[index]} {ondelete} />
 		</li>
 	{/each}
 </ul>
+
+{#if game.players.length !== 0}
+	<a
+		href="/game"
+		transition:scale
+		class="btn mt-9 flex w-full items-center justify-center gap-2 text-3xl font-bold"
+		>Start<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="30"
+			height="30"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="3"
+			stroke-linecap="butt"
+			stroke-linejoin="arcs"
+			class="lucide lucide-arrow-right"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg
+		></a
+	>
+{/if}
 
 <Dialog bind:dialog={choppingBlockDialog}>
 	<p class="text-2xl">

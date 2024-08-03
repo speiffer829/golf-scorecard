@@ -1,4 +1,4 @@
-import type { ColorOptions, PlayerType } from './Types';
+import type { ColorOptions, PlayerType, GameType, HoleType } from './Types';
 
 class GlobalStore {
 	value = $state();
@@ -14,11 +14,22 @@ class GlobalStore {
 	}
 }
 
+export class Game implements GameType {
+	players: Player[] = $state([]);
+	currentHole: number = $state(0);
+	completedHoles: number[] = $state([]);
+
+	setCurrentHole(_holeNumber: number) {
+		_holeNumber = Number(_holeNumber);
+		this.currentHole = _holeNumber;
+	}
+}
+
 export class Player implements PlayerType {
+	readonly id: string;
 	name: string = $state();
 	color: ColorOptions = $state();
-	scores: number[] = $state([]);
-	readonly id: string;
+	scores: number[] = $state([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
 	constructor(_name: string, _color: string) {
 		this.name = _name;
@@ -26,13 +37,13 @@ export class Player implements PlayerType {
 		this.id = Math.random().toString(36).substr(2, 9);
 	}
 
-	addScore(score: number, index: number) {
-		this.scores[index] = score;
+	getTotalScore() {
+		return this.scores.reduce((a, b) => a + b, 0);
 	}
 
-	get total(): number {
-		return this.scores.reduce((acc, cur) => acc + cur, 0);
+	updateScore(_holeNumber: number, _score: number) {
+		this.scores[_holeNumber] = _score;
 	}
 }
 
-export const players: Array = new GlobalStore([]);
+export const game: GameType = new Game();

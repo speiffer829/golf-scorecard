@@ -1,10 +1,17 @@
 export interface PlayerType {
 	id: string;
 	name: string;
-	scores: number[];
 	color: ColorOptions;
-	addScore: (score: number, index: number) => void;
-	total: number;
+	scores: number[];
+	getTotalScore: () => number;
+	updateScore: (holeNumber: number, score: number) => void;
+}
+
+export interface GameType {
+	players: PlayerType[];
+	currentHole: number;
+	completedHoles: number[];
+	setCurrentHole: (holeNumber: number | string) => void;
 }
 
 export type ColorOptions =
