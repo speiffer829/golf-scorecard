@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Counter from '$lib/components/Counter.svelte';
 	import type { PlayerType } from '$lib/Types';
 
 	interface Props {
@@ -14,27 +15,44 @@
 	$inspect(currentScore);
 </script>
 
-<p>{player.name}</p>
-{#each scoreOptions as score}
-	<button
-		class="bg-ball-green"
-		onclick={() => player.updateScore(currentHole, score)}
-		class:bg-ball-red={currentScore === score}
-	>
-		{score}
-	</button>
-{/each}
+<div class="mt-16 theme-{player.color}">
+	<div class="flex items-end justify-between">
+		<p class="name w-fit text-4xl font-bold capitalize">{player.name}</p>
+		<p class="rounded-full text-2xl font-normal text-green-100">
+			<Counter count={player.getTotalScore()} />
+		</p>
+	</div>
+	<div class=" mt-4 grid grid-cols-3 gap-4">
+		{#each scoreOptions as score}
+			<button
+				onclick={() => player.updateScore(currentHole, score)}
+				class:selected={currentScore === score}
+			>
+				{score}
+			</button>
+		{/each}
+	</div>
+</div>
 
 <style>
 	button {
 		border: none;
-		color: white;
-		padding: 15px 32px;
 		text-align: center;
 		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		margin: 4px 2px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: theme('fontSize.2xl');
+		font-weight: bold;
 		cursor: pointer;
+		background-color: theme('colors.green.900');
+		color: theme('colors.green.100');
+		border-radius: 999px;
+		height: theme('width.16');
+	}
+
+	button.selected {
+		background-color: theme('colors.green.100');
+		color: theme('colors.green.900');
 	}
 </style>

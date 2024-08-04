@@ -10,6 +10,6 @@
 <style>
 	main {
 		margin-inline: auto;
-		width: min(100% - 3.5rem, 600px);
+		width: min(100% - 3.5rem, 450px);
 	}
 </style>

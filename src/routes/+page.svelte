@@ -13,7 +13,7 @@
 		<span class="circle bg-ball-orange"></span>
 	</span>
 
-	<a href="/roster" class="btn mt-16 w-full max-w-80 text-2xl">Start A Game</a>
+	<a href="/roster" class="btn mt-16 w-full text-2xl">Start A Game</a>
 </div>
 
 <style>
