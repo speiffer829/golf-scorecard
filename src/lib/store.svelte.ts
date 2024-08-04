@@ -18,6 +18,7 @@ export class Game implements GameType {
 	players: Player[] = $state([]);
 	currentHole: number = $state(0);
 	completedHoles: number[] = $state([]);
+	totalHoles: number = 9;
 
 	setCurrentHole(_holeNumber: number) {
 		_holeNumber = Number(_holeNumber);
