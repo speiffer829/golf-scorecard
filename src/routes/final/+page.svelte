@@ -1,5 +1,9 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { game } from '$lib/store.svelte';
 </script>
+
+<ol>
+	{#each game.rankPlayers() as player}
+		<li>{player.name}: {player.getTotalScore()}</li>
+	{/each}
+</ol>

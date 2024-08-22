@@ -15,7 +15,10 @@
 
 <div class="counter">
 	<div class="counter-viewport">
-		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
+		<div
+			class="counter-digits text-green-900 dark:text-green-100"
+			style="transform: translate(0, {100 * offset}%)"
+		>
 			<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
 			<strong>{Math.floor($displayed_count)}</strong>
 		</div>
@@ -24,9 +27,6 @@
 
 <style>
 	.counter {
-		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	}
 
 	svg {
@@ -41,7 +41,7 @@
 	}
 
 	.counter-viewport {
-		height: 4rem;
+		height: 2rem;
 		width: 50px;
 		overflow: hidden;
 		text-align: center;

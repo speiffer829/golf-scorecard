@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { spin } from '$lib/animations/spin';
+	import { fly } from 'svelte/transition';
 	import Counter from '$lib/components/Counter.svelte';
 	import type { PlayerType } from '$lib/Types';
 
@@ -23,13 +25,16 @@
 		</p>
 	</div>
 	<div class=" mt-4 grid grid-cols-3 gap-4">
-		{#each scoreOptions as score}
-			<button
-				onclick={() => player.updateScore(currentHole, score)}
-				class:selected={currentScore === score}
-			>
-				{score}
-			</button>
+		{#each scoreOptions as score, i}
+			{#key currentHole}
+				<button
+					in:fly={{ y: 100, delay: i * 50 }}
+					onclick={() => player.updateScore(currentHole, score)}
+					class:selected={currentScore === score}
+				>
+					{score}
+				</button>
+			{/key}
 		{/each}
 	</div>
 </div>

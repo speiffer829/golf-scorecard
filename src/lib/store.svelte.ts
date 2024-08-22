@@ -24,6 +24,11 @@ export class Game implements GameType {
 		_holeNumber = Number(_holeNumber);
 		this.currentHole = _holeNumber;
 	}
+
+	rankPlayers(): Player[] {
+		// order lowest to highest
+		return [...this.players].sort((a, b) => a.getTotalScore() - b.getTotalScore());
+	}
 }
 
 export class Player implements PlayerType {

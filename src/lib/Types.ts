@@ -12,6 +12,7 @@ export interface GameType {
 	currentHole: number;
 	completedHoles: number[];
 	setCurrentHole: (holeNumber: number | string) => void;
+	rankPlayers: () => PlayerType[];
 	totalHoles: number;
 }
 
