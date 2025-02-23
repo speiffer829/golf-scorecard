@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import PlayerScoreBox from './PlayerScoreBox.svelte';
 	import { fly } from 'svelte/transition';
+	import Dialog from '$lib/components/Dialog.svelte';
 
 	// $effect(() => {
 	// 	if (game.players.length === 0) {
@@ -16,6 +17,13 @@
 	$effect(() => {
 		game.setCurrentHole(page.url.searchParams.get('hole') || '1');
 	});
+
+	let resetDialogOpen: HTMLDialogElement = $state()!;
+
+	function resetGame() {
+		game.resetGame();
+		goto('/');
+	}
 </script>
 
 {#key game.currentHole}
@@ -67,3 +75,19 @@
 		<a href="/final" class="btn w-full text-2xl">Finish Game</a>
 	{/if}
 </div>
+
+<div class="mt-16 flex justify-center gap-4">
+	<button class="text-sm text-green-200 underline" onclick={() => resetDialogOpen.showModal()}
+		>Reset Game</button
+	>
+</div>
+
+<Dialog bind:dialog={resetDialogOpen}>
+	<p>Are you sure you want to reset the game?</p>
+	<div class="mt-7 flex gap-4">
+		<button class="btn w-full bg-red-200 text-red-900" onclick={() => resetDialogOpen.close()}
+			>Cancel</button
+		>
+		<button class="btn w-full" onclick={resetGame}>Reset Game</button>
+	</div>
+</Dialog>
