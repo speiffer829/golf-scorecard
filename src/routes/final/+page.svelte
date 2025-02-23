@@ -20,7 +20,7 @@
 
 <div class="mt-9 flex gap-4">
 	<a
-		href="/game?hole=9"
+		href="/game?hole=18"
 		class="btn flex items-center justify-center bg-green-600 text-green-100 hover:text-green-900"
 		aria-label="Previous Hole"
 	>
