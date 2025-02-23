@@ -11,10 +11,8 @@
 	}
 	let { player = $bindable(), i, currentHole }: Props = $props();
 
-	const currentScore = $derived(player.scores[currentHole] || 0);
+	const currentScore = $derived(player.scores[currentHole - 1] || 0);
 	const scoreOptions = new Array(6).fill(0).map((_, i) => i + 1);
-
-	$inspect(currentScore);
 </script>
 
 <div class="mt-16 theme-{player.color}">

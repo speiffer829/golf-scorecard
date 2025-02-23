@@ -1,20 +1,20 @@
 <script lang="ts">
 	import { game } from '$lib/store.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import PlayerScoreBox from './PlayerScoreBox.svelte';
 	import { fly } from 'svelte/transition';
 
-	$effect(() => {
-		if (game.players.length === 0) {
-			goto('/roster');
-		}
-	});
+	// $effect(() => {
+	// 	if (game.players.length === 0) {
+	// 		goto('/roster');
+	// 	}
+	// });
 
-	$inspect(game.players.map((p) => p.getTotalScore()));
+	// $inspect(game.players.map((p) => p.getTotalScore()));
 
 	$effect(() => {
-		game.setCurrentHole($page.url.searchParams.get('hole') || '1');
+		game.setCurrentHole(page.url.searchParams.get('hole') || '1');
 	});
 </script>
 
@@ -31,6 +31,7 @@
 		class:pointer-events-none={game.currentHole === 1}
 		class:opacity-50={game.currentHole === 1}
 		class="btn flex items-center justify-center bg-green-600 text-green-100 hover:text-green-900"
+		aria-label="Previous Hole"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,12 @@
 <script>
+	import { game } from '$lib/store.svelte';
+	import { onMount } from 'svelte';
 	import '../app.css';
 	let { children } = $props();
+
+	onMount(() => {
+		let loaded = game.loadGame();
+	});
 </script>
 
 <main>

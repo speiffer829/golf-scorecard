@@ -5,6 +5,8 @@ export interface PlayerType {
 	scores: number[];
 	getTotalScore: () => number;
 	updateScore: (holeNumber: number, score: number) => void;
+	reloadPlayer: (name: string, color: ColorOptions, scores: number[]) => void;
+	generatePlayerObject: () => { id: string; name: string; color: ColorOptions; scores: string };
 }
 
 export interface GameType {
@@ -14,6 +16,9 @@ export interface GameType {
 	setCurrentHole: (holeNumber: number | string) => void;
 	rankPlayers: () => PlayerType[];
 	totalHoles: number;
+	saveGame: () => void;
+	loadGame: () => boolean;
+	resetGame: () => void;
 }
 
 export type ColorOptions =
