@@ -26,7 +26,7 @@
 		{#each scoreOptions as score, i}
 			{#key currentHole}
 				<button
-					in:fly={{ y: 100, delay: i * 50 }}
+					in:fly={{ y: 100, delay: i * 20 }}
 					onclick={() => player.updateScore(currentHole, score)}
 					class:selected={currentScore === score}
 				>
