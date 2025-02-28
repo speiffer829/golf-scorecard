@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { spring } from 'svelte/motion';
+	// spring docs: https://svelte.dev/docs/svelte/svelte-motion
+	import { Spring } from 'svelte/motion';
 
 	let { count = 0 } = $props();
 
-	const displayed_count = spring();
+	const displayed_count = new Spring(0);
 	$effect(() => {
-		displayed_count.set(count);
+		displayed_count.target = count;
 	});
 
-	const offset = $derived(modulo($displayed_count, 1));
+	const offset = $derived(modulo(displayed_count.current, 1));
 
 	function modulo(n: number, m: number) {
 		// handle negative numbers
@@ -22,8 +23,8 @@
 			class="counter-digits text-green-900 dark:text-green-100"
 			style="transform: translate(0, {100 * offset}%)"
 		>
-			<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-			<strong>{Math.floor($displayed_count)}</strong>
+			<strong class="hidden" aria-hidden="true">{Math.floor(displayed_count.current + 1)}</strong>
+			<strong>{Math.floor(displayed_count.current)}</strong>
 		</div>
 	</div>
 </div>
